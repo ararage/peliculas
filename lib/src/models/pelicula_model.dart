@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class Peliculas{
   List<Pelicula> items = new List();
   Peliculas();
@@ -59,8 +61,8 @@ class Pelicula {
     releaseDate = json['release_date'];
   }
 
-  getPostImg(){
-    if(posterPath==null) return 
-    //return 'https://image.tmdb.org/t/p/w500/$posterPath';
+  getPoster(){
+    if(posterPath==null) return '';
+    return 'https://image.tmdb.org/t/p/w500/$posterPath';
   }
 }

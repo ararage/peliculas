@@ -44,10 +44,5 @@ class HomePage extends StatelessWidget {
         );
       },
     );
-    /*
-    peliculasProvider.getEnCines();
-    return CardSwiper(
-      peliculas: [1,2,3,4,5],
-    );*/
   }
 }
