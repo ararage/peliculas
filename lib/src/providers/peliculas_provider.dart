@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:peliculas/src/models/pelicula_model.dart';
 import 'package:peliculas/src/utils/constants.dart';
+import 'package:peliculas/src/models/pelicula_model.dart';
+import 'package:peliculas/src/models/actores_model.dart';
+
 
 class PeliculasProvider{
   
@@ -51,5 +53,13 @@ class PeliculasProvider{
     popularesSink(_populares);
     _cargando = false;
     return respuesta;
+  }
+
+  Future<List<Actor>> getCast(String endpoint) async {
+    final Uri url = Uri.https(apiMovies, endpoint, apiParams);
+    final resp = await http.get(url);
+    final decodedData = json.decode(resp.body);
+    final cast = Cast.fromJsonList(decodedData['cast']);
+    return cast.actores;
   }
 }

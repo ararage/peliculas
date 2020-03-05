@@ -10,6 +10,9 @@ class Peliculas{
 }
 
 class Pelicula {
+  // Unique Id for Hero Animation Between Horizontal Cards and Swiper Cards 
+  String uniqueId;
+
   double popularity;
   int voteCount;
   bool video;

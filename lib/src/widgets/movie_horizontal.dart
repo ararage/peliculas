@@ -41,17 +41,23 @@ class MovieHorizontal extends StatelessWidget {
   }
 
   Widget _tarjeta(BuildContext context, Pelicula pelicula){
+    // Add unique Id for Hero Animation between Horizontal Card and Detail Card
+    pelicula.uniqueId = '${pelicula.id}-poster';
     final tarjeta = Container(
       margin: EdgeInsets.only(right: 15.0),
       child: Column(
         children: <Widget>[
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10.0),
-            child: FadeInImage(
-              image: NetworkImage(pelicula.getPoster()),
-              placeholder: AssetImage('assets/img/no-image.jpg'),
-              fit: BoxFit.cover,
-              height: 100.0,
+          Hero(
+            // Send uniqueId as Tag for Hero Animation
+            tag: pelicula.uniqueId,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10.0),
+              child: FadeInImage(
+                image: NetworkImage(pelicula.getPoster()),
+                placeholder: AssetImage('assets/img/no-image.jpg'),
+                fit: BoxFit.cover,
+                height: 100.0,
+              ),
             ),
           ),
           SizedBox(height: 5.0,),
