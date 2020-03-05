@@ -11,12 +11,16 @@ class PeliculasProvider{
 
   List<Pelicula> _populares = new List();
 
+  // Stream Controller for Popular movies in broadcast mode , 1 : N Consumers
   final _popularesStreamController = StreamController<List<Pelicula>>.broadcast();
 
+  // Add Movies to the Stream Property
   Function(List<Pelicula>)get popularesSink => _popularesStreamController.sink.add;
 
+  // Retrieve data from the Stream Property
   Stream<List<Pelicula>> get popularesStream => _popularesStreamController.stream;
 
+  // Close Stream
   void disposeStreams(){
     _popularesStreamController?.close();
   }
@@ -34,6 +38,10 @@ class PeliculasProvider{
   }
 
   Future<List<Pelicula>> getPopulares() async {
+    // Retrieve Popular [Pelicula] objects from the themoviedb API endpoint '3/movie/popular' by page
+    // Each page of data retrieved it's stored in the [List<Pelicula>._populares] List, for each call the [int._popularesPage] global var it's
+    // incremented by one, after appending data to the List this one it's streamed to  [Function.popularesSink] property
+    // from [StreamController<List<Pelicula>>._popularesStreamController] 
     if(_cargando) return [];
     _cargando = true;
     _popularesPage++;

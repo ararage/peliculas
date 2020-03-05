@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class Peliculas{
   List<Pelicula> items = new List();
   Peliculas();
@@ -64,5 +62,10 @@ class Pelicula {
   getPoster(){
     if(posterPath==null) return '';
     return 'https://image.tmdb.org/t/p/w500/$posterPath';
+  }
+
+  getBackroundImage(){
+    if(posterPath==null) return '';
+    return 'https://image.tmdb.org/t/p/w500/$backdropPath';
   }
 }

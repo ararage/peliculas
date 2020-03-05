@@ -4,6 +4,8 @@ import 'package:peliculas/src/models/pelicula_model.dart';
 class MovieHorizontal extends StatelessWidget {
   
   final List<Pelicula> peliculas;
+
+  // Callback that detects if the scroll continues
   final Function siguientePagina;
 
   MovieHorizontal({ @required this.peliculas,  @required this.siguientePagina});
@@ -27,6 +29,7 @@ class MovieHorizontal extends StatelessWidget {
 
     return Container(
       height: _screenSize.height * 0.2,
+      // PageView Builder it's used for OnDemand Render Widgets
       child: PageView.builder(
         pageSnapping: false,
         controller: _pageController,
@@ -38,28 +41,35 @@ class MovieHorizontal extends StatelessWidget {
   }
 
   Widget _tarjeta(BuildContext context, Pelicula pelicula){
-    return Container(
-        margin: EdgeInsets.only(right: 15.0),
-        child: Column(
-          children: <Widget>[
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10.0),
-              child: FadeInImage(
-                image: NetworkImage(pelicula.getPoster()),
-                placeholder: AssetImage('assets/img/no-image.jpg'),
-                fit: BoxFit.cover,
-                height: 100.0,
-              ),
+    final tarjeta = Container(
+      margin: EdgeInsets.only(right: 15.0),
+      child: Column(
+        children: <Widget>[
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10.0),
+            child: FadeInImage(
+              image: NetworkImage(pelicula.getPoster()),
+              placeholder: AssetImage('assets/img/no-image.jpg'),
+              fit: BoxFit.cover,
+              height: 100.0,
             ),
-            SizedBox(height: 5.0,),
-            Text(
-              pelicula.title, 
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.caption
-            )
-          ],
-        ),
-      );
+          ),
+          SizedBox(height: 5.0,),
+          Text(
+            pelicula.title, 
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.caption
+          )
+        ],
+      ),
+    );
+    return GestureDetector(
+      child: tarjeta,
+      onTap: (){
+        print("Pelicula ${pelicula.title}");
+        Navigator.pushNamed(context, 'detalle', arguments: pelicula);
+      },
+    );
   }
 
   List<Widget> _tarjetas(BuildContext context){

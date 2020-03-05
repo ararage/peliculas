@@ -7,6 +7,7 @@ class HomePage extends StatelessWidget {
   final peliculasProvider = new PeliculasProvider();
   @override
   Widget build(BuildContext context) {
+    
     // Initial Popular Movies
     peliculasProvider.getPopulares();
     
